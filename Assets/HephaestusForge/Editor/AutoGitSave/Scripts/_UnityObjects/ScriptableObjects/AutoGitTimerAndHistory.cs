@@ -120,8 +120,10 @@ namespace HephaestusForge.AutoGit
                             {
                                 if (RunGitCommand("pull"))
                                 {
-                                    RunGitCommand("push");
-                                    _history.Add(time);
+                                    if (RunGitCommand("push"))
+                                    {
+                                        _history.Add(time);
+                                    }
                                 }
                             }
                         }
@@ -137,8 +139,8 @@ namespace HephaestusForge.AutoGit
         /// <summary>
         /// Running the git command through a process
         /// </summary>
-        /// <param name="gitCommand"></param>
-        /// <returns></returns>
+        /// <param name="gitCommand">The command of for either add, commit, pull, push</param>
+        /// <returns>Whether the command was succesful</returns>
         private bool RunGitCommand(string gitCommand)
         {
             ProcessStartInfo processInfo = new ProcessStartInfo("git", gitCommand)
