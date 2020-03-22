@@ -100,7 +100,7 @@ namespace HephaestusForge.AutoGit
 
                 if(_countdownTimer < 10 && _warningTimer <= 0)
                 {
-                    UnityEngine.Debug.LogWarning($"Git update coming in: {_countdownTimer} seconds");
+                    UnityEngine.Debug.LogWarning($"Git update coming in: {(int)_countdownTimer} seconds");
                     _warningTargetTime = EditorApplication.timeSinceStartup + 1;
                 }
 
