@@ -18,7 +18,7 @@ namespace HephaestusForge.AutoGit
         private double _targetTime;
 
         [SerializeField]
-        private double _secondsToDelay;
+        private double _secondsToDelay = 30;
 
 #pragma warning restore 0649
 
@@ -64,6 +64,7 @@ namespace HephaestusForge.AutoGit
             {
                 _countdown = _secondsToDelay;
                 _targetTime = _secondsToDelay + EditorApplication.timeSinceStartup;
+                UnityEngine.Debug.Log($"Starting timer, waiting for: {_secondsToDelay} seconds");
             }
 
             EditorApplication.update -= EditorUpdate;
