@@ -79,20 +79,22 @@ namespace HephaestusForge.AutoGit
 
                 if (_countdown <= 0 && _targetTime <= EditorApplication.timeSinceStartup)
                 {
-                    RunGitCommand(@"add -A");
-                    RunGitCommand($"commit -m \"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}\"");
-                    RunGitCommand("push");
+                    if (RunGitCommand(@"add -A"))
+                    {
+                        RunGitCommand($"commit -m \"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}\"");
+                        RunGitCommand("push");
+                    }
 
                     EditorApplication.update -= EditorUpdate;
                 }
             }
         }
 
-        private void RunGitCommand(string gitCommand)
+        private bool RunGitCommand(string gitCommand)
         {
             ProcessStartInfo processInfo = new ProcessStartInfo("git", gitCommand)
             {
-                CreateNoWindow = true,          
+                //CreateNoWindow = true,          
                 UseShellExecute = false,        
                 RedirectStandardOutput = true,  
                 RedirectStandardError = true    
@@ -104,26 +106,12 @@ namespace HephaestusForge.AutoGit
                 {
                     process.Start();
 
-                    string output = process.StandardOutput.ReadToEnd();
-                    string errorOutput = process.StandardError.ReadToEnd();
-
-                    if (output.Contains("fatal") || output == "no-git" || output == "")
-                    {
-                        throw new Exception("Command: git " + @gitCommand + " Failed\n" + output + errorOutput);
-                    }
-
-                    if (errorOutput != "")
-                    {
-                        UnityEngine.Debug.LogError("Git Error: " + errorOutput);
-                    }
-                    else
-                    {
-                        UnityEngine.Debug.Log($"Git command was succesful: {gitCommand}");
-                    }
+                    return true;
                 }
                 catch (Exception ex)
                 {
                     UnityEngine.Debug.LogError(ex);
+                    return false;
                 }
             }
         }

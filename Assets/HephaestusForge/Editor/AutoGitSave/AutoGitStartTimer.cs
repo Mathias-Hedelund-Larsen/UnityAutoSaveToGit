@@ -2,9 +2,10 @@
 
 namespace HephaestusForge.AutoGit
 {
-    public class AutoGitStartTimer : AssetPostprocessor
+    [InitializeOnLoad]
+    public static class AutoGitStartTimer 
     {
-        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
+        static AutoGitStartTimer()
         {
             var guids = AssetDatabase.FindAssets("t:AutoGitTimerAndHistory");
 
