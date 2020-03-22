@@ -17,10 +17,16 @@ namespace HephaestusForge.AutoGit
 #pragma warning disable 0649
 
         [SerializeField, ReadOnly]
-        private double _countdown;
+        private double _countdownTimer;
 
         [SerializeField, ReadOnly]
         private double _targetTime;
+
+        [SerializeField, ReadOnly]
+        private double _warningTimer;
+
+        [SerializeField, ReadOnly]
+        private double _warningTargetTime;
 
         [SerializeField]
         private double _secondsToDelay = 30;
@@ -71,9 +77,9 @@ namespace HephaestusForge.AutoGit
         /// </summary>
         public void EditorInit()
         {
-            if(_countdown <= 0 && _targetTime <= EditorApplication.timeSinceStartup)
+            if(_countdownTimer <= 0 && _targetTime <= EditorApplication.timeSinceStartup)
             {
-                _countdown = _secondsToDelay;
+                _countdownTimer = _secondsToDelay;
                 _targetTime = _secondsToDelay + EditorApplication.timeSinceStartup;
                 UnityEngine.Debug.Log($"Starting timer, waiting for: {_secondsToDelay} seconds");
             }
@@ -87,11 +93,18 @@ namespace HephaestusForge.AutoGit
         /// </summary>
         private void EditorUpdate()
         {
-            if (_countdown > 0)
+            if (_countdownTimer > 0)
             {
-                _countdown = _targetTime - EditorApplication.timeSinceStartup;
+                _countdownTimer = _targetTime - EditorApplication.timeSinceStartup;
+                _warningTimer = _warningTargetTime - EditorApplication.timeSinceStartup;
 
-                if (_countdown <= 0 && _targetTime <= EditorApplication.timeSinceStartup)
+                if(_countdownTimer < 10 && _warningTimer <= 0)
+                {
+                    UnityEngine.Debug.LogWarning($"Git update coming in: {_countdownTimer} seconds");
+                    _warningTargetTime = EditorApplication.timeSinceStartup + 1;
+                }
+
+                if (_countdownTimer <= 0 && _targetTime <= EditorApplication.timeSinceStartup)
                 {
                     Thread runGitCommands = new Thread(() =>
                     {
