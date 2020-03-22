@@ -79,7 +79,7 @@ namespace HephaestusForge.AutoGit
 
                 if (_countdown <= 0 && _targetTime <= EditorApplication.timeSinceStartup)
                 {
-                    RunGitCommand(@"add .");
+                    RunGitCommand(@"add -A");
                     RunGitCommand($"commit -m \"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}\"");
                     RunGitCommand("push");
 

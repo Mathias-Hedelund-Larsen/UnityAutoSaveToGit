@@ -11,7 +11,7 @@ namespace HephaestusForge.AutoGit
             if (guids.Length == 1)
             {
                 var autoGitTimer = AssetDatabase.LoadAssetAtPath<AutoGitTimerAndHistory>(AssetDatabase.GUIDToAssetPath(guids[0]));
-                autoGitTimer.EditorInit();                
+                EditorApplication.delayCall += () => autoGitTimer.EditorInit();                
             }
         }
     }
