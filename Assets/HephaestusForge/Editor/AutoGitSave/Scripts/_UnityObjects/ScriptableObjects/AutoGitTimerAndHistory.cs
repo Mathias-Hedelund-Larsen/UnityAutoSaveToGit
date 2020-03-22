@@ -119,7 +119,7 @@ namespace HephaestusForge.AutoGit
                     process.Start();
                     process.WaitForExit();
 
-                    UnityEngine.Debug.Log(process.StandardOutput.ReadToEnd());
+                    UnityEngine.Debug.Log($"Git command succes msg: {process.StandardOutput.ReadToEnd()}");
 
                     return true;
                 }
