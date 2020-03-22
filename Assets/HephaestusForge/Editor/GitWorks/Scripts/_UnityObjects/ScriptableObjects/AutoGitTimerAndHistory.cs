@@ -40,7 +40,7 @@ namespace HephaestusForge.GitWorks
         /// <summary>
         /// Creating an instance of this scriptable object if none exists, this is called in the creation menu in the editor.
         /// </summary>
-        [MenuItem("Assets/Create/HephaestusForge/LimitToOne/AutoGitTimerAndHistory", false, 0)]
+        [MenuItem("Assets/Create/HephaestusForge/Limited to one/AutoGitTimerAndHistory", false, 0)]
         private static void CreateInstance()
         {
             if (AssetDatabase.FindAssets("t:AutoGitTimerAndHistory").Length == 0)
