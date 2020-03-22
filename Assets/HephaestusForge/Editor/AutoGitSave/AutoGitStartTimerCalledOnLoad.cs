@@ -9,7 +9,11 @@ namespace HephaestusForge.AutoGit
     public static class AutoGitStartTimerCalledOnLoad 
     {
         /// <summary>
+<<<<<<< HEAD
         /// So lets see if there is a conflict
+=======
+        /// Testing for merge conflict I hope
+>>>>>>> 3ef3cbca9fd31d5de6fb23a2ebb279f606e78931
         /// </summary>
         static AutoGitStartTimerCalledOnLoad()
         {
