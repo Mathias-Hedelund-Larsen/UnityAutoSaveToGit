@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Diagnostics;
 using HephaestusForge.ReadOnly;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace HephaestusForge.AutoGit
 {
@@ -30,6 +31,9 @@ namespace HephaestusForge.AutoGit
 
         [SerializeField]
         private double _secondsToDelay = 30;
+
+        [SerializeField, ReadOnly]
+        private List<string> _history = new List<string>();
 
 #pragma warning restore 0649
 
@@ -110,11 +114,14 @@ namespace HephaestusForge.AutoGit
                     {
                         if (RunGitCommand(@"add -A"))
                         {
-                            if (RunGitCommand($"commit -m \"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}\""))
+                            string time = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
+
+                            if (RunGitCommand($"commit -m \"{time}\""))
                             {
                                 if (RunGitCommand("pull"))
                                 {
                                     RunGitCommand("push");
+                                    _history.Add(time);
                                 }
                             }
                         }
