@@ -82,6 +82,7 @@ namespace HephaestusForge.AutoGit
                     if (RunGitCommand(@"add -A"))
                     {
                         RunGitCommand($"commit -m \"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}\"");
+                        RunGitCommand("pull");
                         RunGitCommand("push");
                     }
 
@@ -105,7 +106,7 @@ namespace HephaestusForge.AutoGit
                 try
                 {
                     process.Start();
-
+                    process.WaitForExit();
                     return true;
                 }
                 catch (Exception ex)
