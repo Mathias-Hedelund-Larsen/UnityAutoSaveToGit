@@ -135,10 +135,18 @@ namespace HephaestusForge.AutoGit
                 {
                     process.Start();
                     process.WaitForExit();
+                    string error = process.StandardError.ReadToEnd();
 
-                    UnityEngine.Debug.Log($"Git command succes msg: {process.StandardOutput.ReadToEnd()}");
-
-                    return process.StandardError.ReadToEnd().Length == 0;
+                    if (error.Length == 0)
+                    {
+                        UnityEngine.Debug.Log($"Git command succes msg: {process.StandardOutput.ReadToEnd()}");
+                        return true;
+                    }
+                    else
+                    {
+                        UnityEngine.Debug.LogError($"Git error was met: {process.StandardOutput.ReadToEnd()}");
+                        return false;
+                    }
                 }
                 catch (Exception ex)
                 {
