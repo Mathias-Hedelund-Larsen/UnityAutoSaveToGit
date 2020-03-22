@@ -2,9 +2,15 @@
 
 namespace HephaestusForge.AutoGit
 {
+    /// <summary>
+    /// Called when the editor reloads the assets
+    /// </summary>
     [InitializeOnLoad]
     public static class AutoGitStartTimerCalledOnLoad 
     {
+        /// <summary>
+        /// Called by unity because of the class attribute
+        /// </summary>
         static AutoGitStartTimerCalledOnLoad()
         {
             var guids = AssetDatabase.FindAssets("t:AutoGitTimerAndHistory");

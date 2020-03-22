@@ -9,6 +9,9 @@ using System.Threading;
 
 namespace HephaestusForge.AutoGit
 {
+    /// <summary>
+    /// The timer for when to do the git commands
+    /// </summary>
     public sealed class AutoGitTimerAndHistory : ScriptableObject
     {
 #pragma warning disable 0649
@@ -60,6 +63,9 @@ namespace HephaestusForge.AutoGit
             }
         }
 
+        /// <summary>
+        /// Adding the timer to the editor application update
+        /// </summary>
         public void EditorInit()
         {
             if(_countdown <= 0 && _targetTime <= EditorApplication.timeSinceStartup)
@@ -73,7 +79,10 @@ namespace HephaestusForge.AutoGit
             EditorApplication.update += EditorUpdate;
         }
 
-        public void EditorUpdate()
+        /// <summary>
+        /// Added to the Editor application update
+        /// </summary>
+        private void EditorUpdate()
         {
             if (_countdown > 0)
             {
@@ -102,6 +111,11 @@ namespace HephaestusForge.AutoGit
             }
         }
 
+        /// <summary>
+        /// Running the git command through a process
+        /// </summary>
+        /// <param name="gitCommand"></param>
+        /// <returns></returns>
         private bool RunGitCommand(string gitCommand)
         {
             ProcessStartInfo processInfo = new ProcessStartInfo("git", gitCommand)
