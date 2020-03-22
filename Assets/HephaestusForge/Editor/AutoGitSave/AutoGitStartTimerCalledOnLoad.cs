@@ -9,7 +9,7 @@ namespace HephaestusForge.AutoGit
     public static class AutoGitStartTimerCalledOnLoad 
     {
         /// <summary>
-        /// Called by unity because of the class attribute
+        /// Testing for merge conflict I hope
         /// </summary>
         static AutoGitStartTimerCalledOnLoad()
         {
