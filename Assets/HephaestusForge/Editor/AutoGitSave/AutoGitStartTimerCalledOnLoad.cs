@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-namespace HephaestusForge.AutoGit
+namespace HephaestusForge.GitWorks
 {
     /// <summary>
     /// Called when the editor reloads the assets

@@ -3,12 +3,12 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using System.Threading;
 using System.Diagnostics;
 using HephaestusForge.ReadOnly;
-using System.Threading;
 using System.Collections.Generic;
 
-namespace HephaestusForge.AutoGit
+namespace HephaestusForge.GitWorks
 {
     /// <summary>
     /// The timer for when to do the git commands

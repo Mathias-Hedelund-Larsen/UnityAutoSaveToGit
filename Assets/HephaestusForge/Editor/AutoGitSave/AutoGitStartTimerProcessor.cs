@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEditor;
 
-namespace HephaestusForge.AutoGit
+namespace HephaestusForge.GitWorks
 {
     /// <summary>
     /// Starting the method timer when assets are being postprocessed
