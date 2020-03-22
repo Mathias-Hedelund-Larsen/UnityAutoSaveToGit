@@ -1,0 +1,3 @@
+[submodule "GitSubmodules/ReadOnly"]
+	path = GitSubmodules/ReadOnly
+	url = https://github.com/Mathias-Hedelund-Larsen/ReadOnly.git

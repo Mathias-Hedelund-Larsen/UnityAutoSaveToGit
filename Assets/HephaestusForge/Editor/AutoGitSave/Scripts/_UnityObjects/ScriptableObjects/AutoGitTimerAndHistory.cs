@@ -111,6 +111,9 @@ namespace HephaestusForge.AutoGit
                 {
                     process.Start();
                     process.WaitForExit();
+
+                    UnityEngine.Debug.Log(process.StandardOutput.ReadToEnd());
+
                     return true;
                 }
                 catch (Exception ex)
