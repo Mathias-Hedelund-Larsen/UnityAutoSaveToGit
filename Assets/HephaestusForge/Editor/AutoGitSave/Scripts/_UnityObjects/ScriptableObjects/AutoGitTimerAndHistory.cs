@@ -73,13 +73,18 @@ namespace HephaestusForge.AutoGit
 
         public void EditorUpdate()
         {
-            _countdown = _targetTime - EditorApplication.timeSinceStartup;
-
-            if(_countdown <= 0 && _targetTime <= EditorApplication.timeSinceStartup)
+            if (_countdown > 0)
             {
-                RunGitCommand(@"add .");
-                RunGitCommand($"commit -m \"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}\"");
-                RunGitCommand("push");
+                _countdown = _targetTime - EditorApplication.timeSinceStartup;
+
+                if (_countdown <= 0 && _targetTime <= EditorApplication.timeSinceStartup)
+                {
+                    RunGitCommand(@"add .");
+                    RunGitCommand($"commit -m \"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}\"");
+                    RunGitCommand("push");
+
+                    EditorApplication.update -= EditorUpdate;
+                }
             }
         }
 
@@ -87,21 +92,39 @@ namespace HephaestusForge.AutoGit
         {
             ProcessStartInfo processInfo = new ProcessStartInfo("git", gitCommand)
             {
-                CreateNoWindow = true,          // We want no visible pop-ups
-                UseShellExecute = false,        // Allows us to redirect input, output and error streams
-                RedirectStandardOutput = true,  // Allows us to read the output stream
-                RedirectStandardError = true    // Allows us to read the error stream
+                CreateNoWindow = true,          
+                UseShellExecute = false,        
+                RedirectStandardOutput = true,  
+                RedirectStandardError = true    
             };
 
-            Process process = new Process() { StartInfo = processInfo};
+            using (Process process = new Process() { StartInfo = processInfo })
+            {
+                try
+                {
+                    process.Start();
 
-            try
-            {
-                process.Start();
-            }
-            catch (Exception ex)
-            {
-                UnityEngine.Debug.LogError(ex);
+                    string output = process.StandardOutput.ReadToEnd();
+                    string errorOutput = process.StandardError.ReadToEnd();
+
+                    if (output.Contains("fatal") || output == "no-git" || output == "")
+                    {
+                        throw new Exception("Command: git " + @gitCommand + " Failed\n" + output + errorOutput);
+                    }
+
+                    if (errorOutput != "")
+                    {
+                        UnityEngine.Debug.LogError("Git Error: " + errorOutput);
+                    }
+                    else
+                    {
+                        UnityEngine.Debug.Log($"Git command was succesful: {gitCommand}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    UnityEngine.Debug.LogError(ex);
+                }
             }
         }
     }
