@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Diagnostics;
 using HephaestusForge.ReadOnly;
+using System.Threading;
 
 namespace HephaestusForge.AutoGit
 {
@@ -80,16 +81,21 @@ namespace HephaestusForge.AutoGit
 
                 if (_countdown <= 0 && _targetTime <= EditorApplication.timeSinceStartup)
                 {
-                    if (RunGitCommand(@"add -A"))
+                    Thread runGitCommands = new Thread(() =>
                     {
-                        if (RunGitCommand($"commit -m \"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}\""))
+                        if (RunGitCommand(@"add -A"))
                         {
-                            if (RunGitCommand("pull"))
+                            if (RunGitCommand($"commit -m \"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}\""))
                             {
-                                RunGitCommand("push");
+                                if (RunGitCommand("pull"))
+                                {
+                                    RunGitCommand("push");
+                                }
                             }
                         }
-                    }
+                    });
+
+                    runGitCommands.Start();
 
                     EditorApplication.update -= EditorUpdate;
                 }
