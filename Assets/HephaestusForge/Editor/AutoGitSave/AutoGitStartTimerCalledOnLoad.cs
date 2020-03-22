@@ -3,9 +3,9 @@
 namespace HephaestusForge.AutoGit
 {
     [InitializeOnLoad]
-    public static class AutoGitStartTimer 
+    public static class AutoGitStartTimerCalledOnLoad 
     {
-        static AutoGitStartTimer()
+        static AutoGitStartTimerCalledOnLoad()
         {
             var guids = AssetDatabase.FindAssets("t:AutoGitTimerAndHistory");
 
