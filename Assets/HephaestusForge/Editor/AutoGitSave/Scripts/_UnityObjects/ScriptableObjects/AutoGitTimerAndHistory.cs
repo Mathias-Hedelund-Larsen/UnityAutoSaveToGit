@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using System.Diagnostics;
+using HephaestusForge.ReadOnly;
 
 namespace HephaestusForge.AutoGit
 {
@@ -11,10 +12,10 @@ namespace HephaestusForge.AutoGit
     {
 #pragma warning disable 0649
 
-        [SerializeField]
+        [SerializeField, ReadOnly]
         private double _countdown;
 
-        [SerializeField]
+        [SerializeField, ReadOnly]
         private double _targetTime;
 
         [SerializeField]
