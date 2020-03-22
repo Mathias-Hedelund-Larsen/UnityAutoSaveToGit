@@ -172,7 +172,7 @@ namespace HephaestusForge.AutoGit
                     }
                     else
                     {
-                        UnityEngine.Debug.Log($"Git command succes msg: {error}");
+                        UnityEngine.Debug.Log($"Git command returned: {error}");
                         return true;
                     }
                 }
