@@ -31,6 +31,8 @@ namespace HephaestusForge.AutoGit
         [SerializeField]
         private double _secondsToDelay = 30;
 
+        //Another little test
+        
 #pragma warning restore 0649
 
         /// <summary>
