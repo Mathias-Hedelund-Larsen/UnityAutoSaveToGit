@@ -81,9 +81,13 @@ namespace HephaestusForge.AutoGit
                 {
                     if (RunGitCommand(@"add -A"))
                     {
-                        RunGitCommand($"commit -m \"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}\"");
-                        RunGitCommand("pull");
-                        RunGitCommand("push");
+                        if (RunGitCommand($"commit -m \"{DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")}\""))
+                        {
+                            if (RunGitCommand("pull"))
+                            {
+                                RunGitCommand("push");
+                            }
+                        }
                     }
 
                     EditorApplication.update -= EditorUpdate;
@@ -95,7 +99,7 @@ namespace HephaestusForge.AutoGit
         {
             ProcessStartInfo processInfo = new ProcessStartInfo("git", gitCommand)
             {
-                //CreateNoWindow = true,          
+                CreateNoWindow = true,          
                 UseShellExecute = false,        
                 RedirectStandardOutput = true,  
                 RedirectStandardError = true    
