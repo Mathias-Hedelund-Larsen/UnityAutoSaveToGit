@@ -167,7 +167,7 @@ namespace HephaestusForge.AutoGit
                     }
                     else if(output.Length > 0)
                     {
-                        UnityEngine.Debug.LogError($"Git error was met: {output}");
+                        UnityEngine.Debug.LogError($"Git error was met output was: {output} error was: {error}");
                         return false;
                     }
                     else
